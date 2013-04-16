@@ -1,0 +1,12 @@
+# pattern (coordinates; expected position);
+# commands, start_position_X start_position_Y; positionX positionY Compass_Facing;
+# 1) learning to turn to left 
+LL,1 1 NORTH; 1 1 SOUTH
+# 2) learning to turn to right
+RR,1 1 SOUTH; 1 1 NORTH
+# 3) learning to go forth
+MMMMM,2 0 NORTH; 2 5 NORTH
+# 4) TW´s suggest tests
+LMLMLMLMM,1 2 N; 1 3 NORTH
+MMRMMRMRRM,3 3 EAST; 5 1 EAST
+LLLL,3 3 EAST; 3 3 EAST
