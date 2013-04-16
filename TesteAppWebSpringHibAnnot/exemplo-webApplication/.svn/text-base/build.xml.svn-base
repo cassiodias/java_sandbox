@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="intranet" basedir="." default="compile">
+	<!-- ======================================================================
+	== Diretórios de projeto 
+    ======================================================================== -->
+	<property name="dir_src" value="${basedir}/src" />
+	<property name="dir_bld" value="${basedir}/web/WEB-INF/classes"/>
+	<property name="dir_lib" value="${basedir}/web/WEB-INF/lib"/>	
+	
+	<target name="compile" >
+		<echo> Compilando classes...</echo>
+		<javac srcdir="${dir_src}" destdir="${dir_bld}" debug="on" deprecation="on"/> 
+	</target>
+
+	
+	<!--target name="compile" description="Compila toda a aplicação">
+		<echo>+ C o m p i l a n d o ...                   + </echo>
+
+		<javac debug="on" deprecation="on" optimize="off" destdir="${dir_bld}" listfiles="no" compiler="javac1.4">
+			<src path="${dir_src}" />
+			
+			<classpath>
+			  <pathelement path="${classpath}"/>
+			</classpath>
+
+		</javac>
+	</target-->
+	
+
+</project>

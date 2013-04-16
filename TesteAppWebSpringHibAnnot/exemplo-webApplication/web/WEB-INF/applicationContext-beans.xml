@@ -1,0 +1,24 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName" default-lazy-init="false">
+
+	<!--
+		========================================================================
+														  Hoepers - S.A Tecnocob
+		========================================================================
+		Arquivo  : applicationContext-jdbc.xml
+		Data     : 15.01.2007
+		Autor    : Cássio Dias
+		Descrição: Este arquivo possui somente as declaração dos beans que fazem
+		parte do contexto do spring framework.
+		========================================================================
+	-->
+
+   <!--  DAO's  -->   
+   <bean id="pessoaDAO" 
+	   class="br.com.hoepers.webtest.modulo1.dao.impl.PessoaDaoImpl"/>
+	
+   <!-- Business Object -->   
+   <bean id="hoepersBO"
+	   class="br.com.hoepers.webtest.modulo1.business.pojo.HoepersPOJO"/>
+	
+</beans>

@@ -1,0 +1,171 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-autowire="byName" default-lazy-init="true" default-dependency-check="none">
+
+	<!--
+		====================================================================================
+		Configuração do objeto servlet do velocity (Integrado ao SPRING).
+		====================================================================================
+		Objetivo: Permite que uma pagina mapeada como WEB-INF/vm/moduloXXX/pagina.vm 
+		possa ser referenciada apenas como pagina no controller delegando a resolucao
+		da View.
+		
+		Note: This bean sets up the Velocity environment for us based on a root path for
+		templates.
+		Optionally, a properties file can be specified for more control over the Velocity
+		environment, but the defaults are pretty sane for file based template loading.
+		====================================================================================
+	-->
+	<bean id="velocityConfig"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath">
+			<value>/WEB-INF/vm/modulo1</value>
+		</property>
+		<property name="velocityProperties">
+			<props>
+				<prop key="velocimacro.library">VM_macros.vm</prop>
+				<prop key="velocimacro.permissions.allow.inline">true</prop>
+				<prop key="velocimacro.permissions.allow.inline.to.replace.global">false</prop>
+				<prop key="velocimacro.permissions.allow.inline.local.scope">false</prop>
+				<prop key="velocimacro.context.localscope">false</prop>
+				<prop key="input.encoding">ISO-8859-1</prop>
+				<prop key="output.encoding">ISO-8859-1</prop>
+				<prop key="directive.foreach.counter.name">velocityCount</prop>
+				<prop key="directive.foreach.counter.initial.value"> 1 </prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 
+		============================================================		
+		Configuração do view resolver com suporte a JSTL.
+		============================================================
+		Objetivo: Permite que uma pagina mapeada como 
+		WEB-INF/jsp/pagina.jsp	possa ser referenciada apenas 
+		como pagina no Controller delegando a resolucao da View.                                                                                            
+		============================================================		
+	-->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+	
+	<!--
+		======================================================================================
+		Configuração do view resolver do velocity via Spring.
+		======================================================================================
+		View resolvers can be configured with ResourceBundles or XML files.  If you need
+		different view resolving based on Locale, you have to use the resource bundle resolver,
+		otherwise it makes no difference.  I simply prefer to keep the Spring configs and
+		contexts in XML.  See Spring documentation for more info.
+		======================================================================================
+	-->
+	<bean id="viewResolverVelocity"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass">
+			<value>br.com.hoepers.webtest.utils.CustomVelocityView</value>
+		</property>
+		<property name="attributes">
+			<value>
+				org.springframework.metadata.commons.CommonsAttributes</value>
+		</property>
+		<property name="suffix">
+			<value>.vm</value>
+		</property>
+	</bean>
+
+	<!--
+		===========================================================				
+		Configuracao do Exception Resolver (SPRING)
+		===========================================================
+		Deprecated on 11.01.2007
+		Author: Cássio Dias
+		===========================================================
+		Todas as exception são direcionadas ao
+		/WEB-INF/jsp/pageError.jsp via configuração no arquivo 
+		/WEB-INF/web.xml.
+		===========================================================		
+	-->
+	<!--
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"
+		singleton="true">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">errorPage</prop>
+			</props>
+		</property>
+	</bean>
+	-->
+	
+	<!--
+		=======================================================
+		Início das declarações dos bens específicos ao sistema.
+		=======================================================		
+	-->
+		
+		<!-- Controller's -->
+		<bean name="simpleFormController" 
+			class="br.com.hoepers.webtest.modulo1.web.controller.SimpleFormController"/>
+	
+		<bean name="controller" 
+			class="br.com.hoepers.webtest.modulo1.web.controller.Controller"/>
+	
+		<bean id="multiAcaoController" class="br.com.hoepers.webtest.modulo1.web.controller.MultiAcaoController">
+			<property name="methodNameResolver" ref="multiAcaoControllerResolver"/>
+		</bean>
+	
+		<!--
+			=============================================================
+			SimpleUrlHandlerMapping
+			=============================================================
+			Objetivo: Mapear qual controller é responsável por qual URL.
+			=============================================================			
+		-->
+		<bean id="urlMapping"
+			class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+			<property name="mappings">
+				<props>
+					<prop key="/simpleFormController.do">simpleFormController</prop>					
+					<prop key="/controller.do">controller</prop>
+					<prop key="/metodo1.do">multiAcaoController</prop>
+					<prop key="/metodo2.do">multiAcaoController</prop>
+					<prop key="/metodo3.do">multiAcaoController</prop>
+				</props>
+			</property>
+		</bean>
+	
+		<!--
+			=============================================================
+			multiAcaoControllerResolver - PropertiesMethodNameResolver
+			=============================================================
+			Objetivo: Resolver utilizado para o controller multi-ação 
+			'multiAcaoController', fazendo com que seja	mapeado qual 
+			método será executado apartir da URL requisitada.
+			=============================================================			
+		-->
+		<bean id="multiAcaoControllerResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+			<property name="mappings">
+			<props>
+				<prop key="/metodo1.do">metodo1</prop>
+				<prop key="/metodo2.do">metodo2</prop>
+				<prop key="/metodo3.do">metodo3</prop>
+			</props>
+			</property>
+		</bean>
+	
+	<!--
+		=======================================================
+		Fim das declarações dos bens específicos ao sistema.
+		=======================================================	
+	-->
+</beans>

@@ -1,0 +1,11 @@
+#Mon Jan 15 11:48:34 GMT-03:00 2007
+eclipse.preferences.version=1
+encoding//web/WEB-INF/vm/equipamento.vm=ISO-8859-1
+encoding//web/WEB-INF/vm/finalizar.vm=ISO-8859-1
+encoding//web/WEB-INF/vm/iniciar.vm=ISO-8859-1
+encoding//web/WEB-INF/vm/listaValores.vm=ISO-8859-1
+encoding//web/WEB-INF/vm/notificacao.vm=ISO-8859-1
+encoding//web/WEB-INF/vm/parar.vm=ISO-8859-1
+encoding//web/WEB-INF/vm/sincroniza.vm=ISO-8859-1
+encoding//web/WEB-INF/vm/solicitacao.vm=ISO-8859-1
+encoding/<project>=ISO-8859-1

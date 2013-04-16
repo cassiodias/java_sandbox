@@ -1,0 +1,54 @@
+package br.com.hoepers.webtest.utils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.velocity.context.Context;
+import org.apache.velocity.tools.generic.DateTool;
+import org.apache.velocity.tools.generic.MathTool;
+import org.apache.velocity.tools.generic.NumberTool;
+import org.springframework.web.servlet.support.RequestContext;
+import org.springframework.web.servlet.view.velocity.VelocityView;
+
+/**
+ * @author Felipe Santos
+ */
+public class CustomVelocityView extends VelocityView {
+	private static DateTool dateTool = new DateTool();
+
+	private static MathTool mathTool = new MathTool();
+
+	private static NumberTool numberTool = new NumberTool();
+	
+	private static StringUtils stringTool = new StringUtils();
+	
+	public CustomVelocityView() {
+		super();
+		setContentType("text/html");
+		setExposeRequestAttributes(false);
+		setExposeSessionAttributes(true);
+		setExposeSpringMacroHelpers(true);
+		setRequestContextAttribute("ctx");
+	}
+
+	protected void exposeHelpers(Context model, HttpServletRequest request)
+			throws Exception {
+		model.put("request", request);
+		model.put("dateTool", dateTool);
+		model.put("mathTool", mathTool);
+		model.put("numberTool", numberTool);
+		model.put("stringTool", stringTool);
+		
+		
+		Map m = new HashMap();
+		for (int i = 0; i < model.getKeys().length; i++) {
+			String o = (String) model.getKeys()[i];
+			m.put(o, model.get(o));
+		}
+		model.put("ctx", new RequestContext(request, m));
+		super.exposeHelpers(model, request);
+	}
+}

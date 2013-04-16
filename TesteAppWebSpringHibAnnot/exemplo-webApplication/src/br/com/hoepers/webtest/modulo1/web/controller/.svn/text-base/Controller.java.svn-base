@@ -1,0 +1,28 @@
+package br.com.hoepers.webtest.modulo1.web.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
+
+import br.com.hoepers.webtest.modulo1.business.HoepersBO;
+
+public class Controller implements org.springframework.web.servlet.mvc.Controller {
+
+	private HoepersBO hoepersBO;
+	
+	public Controller() {
+		super();
+	}
+
+	public ModelAndView handleRequest(HttpServletRequest arg0,
+			HttpServletResponse arg1) throws Exception {
+		return new ModelAndView("teste","pessoa",hoepersBO.loadPessoa());
+	}
+
+	public void setHoepersBO(HoepersBO objectBusiness) {
+		this.hoepersBO = objectBusiness;
+	}
+
+	
+}

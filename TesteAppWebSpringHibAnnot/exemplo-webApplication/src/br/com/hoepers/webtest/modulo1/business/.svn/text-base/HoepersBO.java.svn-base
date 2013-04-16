@@ -1,0 +1,7 @@
+package br.com.hoepers.webtest.modulo1.business;
+
+import br.com.hoepers.webtest.model.Pessoa;
+
+public interface HoepersBO {
+	public Pessoa loadPessoa();
+}

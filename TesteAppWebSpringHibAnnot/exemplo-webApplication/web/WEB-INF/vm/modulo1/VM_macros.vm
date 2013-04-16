@@ -1,0 +1,233 @@
+#macro(asteristo)
+	<span class="asteristo" title="Campo ObrigatÃ³rio."> * </span>
+#end
+
+#macro(staticscript)
+$clientValidationHelper.setHtmlComment( "true" )
+$clientValidationHelper.setCdata( "false" )
+$clientValidationHelper.setDynamicJavascript( "false" )
+$clientValidationHelper.setStaticJavascript( "true" )
+$clientValidationHelper.execute()
+#end
+#macro(dynscript $name)
+$clientValidationHelper.setHtmlComment( "true" )
+$clientValidationHelper.setCdata( "false" )
+$clientValidationHelper.setDynamicJavascript( "true" )
+$clientValidationHelper.setStaticJavascript( "false" )
+$clientValidationHelper.setFormName( $name )
+$clientValidationHelper.execute()
+#end
+
+#**
+ * formInputHidden
+ *
+ * Display a form input field of type 'hidden' and bind it to an attribute
+ * of a command or bean.
+ *
+ * @param path the name of the field to bind to
+ * @param attributes any additional attributes for the element (such as class
+ *        or CSS styles or size
+ *
+ *#
+#macro( formInputHidden $path $attributes $Objetovalor )
+	#springBind($path)
+	<input type="hidden" name="${status.expression}" value="$!status.value" ${attributes}#springCloseTag()
+#end
+
+#**
+ * springCloseTag
+ *
+ * Simple macro to close an HTML tag that has no body with '>' or '/>',
+ * depending on the value of a 'springXhtmlCompliant' variable in the
+ * template context.
+ *#
+#macro( springCloseTag )#if($springXhtmlCompliant)/>#else>#end #end
+
+#**
+ * springBind
+ * 
+ * Exposes a BindStatus object for the given bind path, which can be
+ * a bean (e.g. "person") to get global errors, or a bean property
+ * (e.g. "person.name") to get field errors. Can be called multiple times
+ * within a form to bind to multiple command objects and/or field names.
+ *
+ * This macro will participate in the default HTML escape setting for the given
+ * RequestContext. This can be customized by calling "setDefaultHtmlEscape"
+ * on the "springMacroRequestContext" context variable, or via the
+ * "defaultHtmlEscape" context-param in web.xml (same as for the JSP bind tag).
+ * Also regards a "springHtmlEscape" variable in the template context.
+ *
+ * Producing no output, the following context variable will be available
+ * each time this macro is referenced:
+ *
+ *   $status : a BindStatus instance holding the command object name,
+ *   expression, value, and error codes and messages for the path supplied
+ *
+ * @param $path : the path (string value) of the value required to bind to.
+ *   Spring defaults to a command name of "command" but this can be overridden
+ *   by user config.
+ *#
+#macro( springBind $path )
+	#if("$!springHtmlEscape" != "")
+		#set( $status = $springMacroRequestContext.getBindStatus($path, $springHtmlEscape) )
+	#else
+		#set( $status = $springMacroRequestContext.getBindStatus($path) )
+	#end
+#end
+
+
+#**
+ * formRadioButton
+ *
+ * Show radio buttons.
+ *
+ * @param path the name of the field to bind to
+ * @param options a map (value=label) of all the available options
+ * @param separator the html tag or other character list that should be used to
+ *        separate each option.  Typically '&nbsp;' or '<br>'
+ * @param attributes any additional attributes for the element (such as class
+ *        or CSS styles or size
+*#
+#macro( formRadioButton $path $options $separator $attributes )
+	#springBind($path)
+		<input type="radio" name="${status.expression}" value="${option}"
+		#if("$!status.value" == "$option")
+			" checked"
+		#end
+		${attributes}
+		#springCloseTag()
+		${separator}
+#end
+
+
+#**
+ * formCheckbox
+ *
+ * Show checkboxes.
+ *
+ * @param path the name of the field to bind to
+ * @param options a map (value=label) of all the available options
+ * @param separator the html tag or other character list that should be used to
+ *        separate each option.  Typically '&nbsp;' or '<br>'
+ * @param attributes any additional attributes for the element (such as class
+ *        or CSS styles or size
+*#
+#macro( formCheckbox $path $options $separator $attributes )
+	#springBind($path)
+		<input type="checkbox" name="${status.expression}" value="${option}"
+		#if("$!status.value" == "$option")
+		##	" checked"
+		##end
+		${attributes}
+		#springCloseTag()
+		${separator}
+	#end
+#end
+
+#macro(input $valor $nome $size)
+	<input name="$!{nome}" id="$!{nome}" value="$!valor" type="text" size="$size"/>
+#end	
+
+#macro(select $nome $lista $comparar)
+<select name="$nome" id="$nome">
+	#foreach($listai in $lista)
+		<option value="$listai.$" #if($listai.codigo == $pedido.demanda.codigo) checked="checked" #end>
+			$listai.descricao
+		</option>
+	#end
+</select>
+#end
+
+#macro(showErrors $selector )
+	#springBind($selector)
+	#set($failure=false)
+		#foreach($error in $status.errorMessages)
+	#set($failure=true)
+	#end
+	
+	#if($failure == true)
+		#foreach($error in $status.errorMessages)
+    		<li>$error</li>
+		#end
+	#end
+#end
+
+#macro(paginacao $pageNo $pages $BotaoFechar $totalRegistros)
+#if($pages)
+	<script type="text/javascript" language="javascript">
+    var Totalpaginas = $pages;
+    var paginaAtual = $!pageNo;
+
+	function enviaForm(){
+		var paginaInvalida=false;
+		var pageNo = document.forms[0].pageNo.value;
+		if(pageNo > Totalpaginas)
+			paginaInvalida=true;
+		if(pageNo < 1)
+			paginaInvalida=true;
+		if((Totalpaginas == 1) && (pageNo == 1))
+			return false;
+		if(paginaInvalida==true){
+			alert('Página inexistente');
+			document.forms[0].pageNo.focus();
+			return false;
+		}
+		else{
+			document.forms[0].submit();
+			return true;
+		}
+	}
+	
+	function incrementa(inc){
+		if((paginaAtual+inc) > Totalpaginas){
+			alert('Página inexistente');
+		}
+		else {
+			document.forms[0].pageNo.value = paginaAtual+inc;
+			document.forms[0].submit();
+		}
+	}
+
+	function decrementa(dec){
+		if((paginaAtual-dec) < 1){
+			alert('Página inexistente');
+		}
+		else {
+			document.forms[0].pageNo.value = paginaAtual-dec;
+			document.forms[0].submit();
+		}
+	}
+	</script>
+	
+	<center>
+	<table class="tabelas2">
+	    <tr>
+	      <td>
+	         <input name="hAvancaRecua" type="button" value="<<" onclick="decrementa(1)">
+	         <input type="hidden" name="hMenor" value="20"/>
+	         <input type="text" name="pageNo" id="pageNo" size="3" value="$!pageNo" onkeypress="if(event.keyCode == 13) return enviaForm(); return Bloqueia_Caracteres(event);"/>
+	         <input type="hidden" name="hMaior" value="30">
+	         <input name="hAvancaRecua" type="button" value=">>" onclick="incrementa(1)"/> 
+	      </td>
+	    </tr>
+		
+		#if($BotaoFechar==true)
+	        <tr>
+	          <td>
+	             <input type="button" name="hFechar" value="Fechar" onClick="window.close();">
+	          </td>
+	        </tr>
+		#end
+	
+		<tr> 
+			<td><b>
+Página $!pageNo de #if("$!pages"=="0") 1 #else $!pages #end <br /> 
+				#if("$!totalRegistros" != "false")
+Total de linhas $!totalRegistros
+				#end
+</b>			</td>
+		</tr>
+	</table>
+	</center>
+#end
+#end

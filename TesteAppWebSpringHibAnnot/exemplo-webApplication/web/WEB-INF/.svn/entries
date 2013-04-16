@@ -1,0 +1,147 @@
+8
+
+dir
+27272
+svn://172.16.4.45/tecnocob/pesquisas/TesteAppWebSpringHibAnnot/exemplo-webApplication/web/WEB-INF
+svn://172.16.4.45
+
+
+
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+b85a891d-cf35-0410-9a6a-f68e1ed5b63c
+
+modulo1-servlet.xml
+file
+
+
+
+
+2009-08-27T13:37:56.064895Z
+db1aa02b3e76229c1a4efcf52d264021
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+vm
+dir
+
+tld
+dir
+
+lib
+dir
+
+applicationContext-jdbc.xml
+file
+
+
+
+
+2009-08-27T13:37:56.080509Z
+7fc405f5d2409012b29e343b2109a3f5
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+applicationContext-transaction.xml
+file
+
+
+
+
+2009-08-27T13:37:56.096123Z
+9fc40e2bf78497ea169f63ac69836797
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+log4j.properties
+file
+
+
+
+
+2009-08-27T13:37:56.111737Z
+46386be27d716a62962e20e52967410c
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+jsp
+dir
+
+web.xml
+file
+
+
+
+
+2009-08-27T13:37:56.205423Z
+a331d34b7d9c4fd8410a3b4b195c94d3
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+classes
+dir
+
+applicationContext-beans.xml
+file
+
+
+
+
+2009-08-27T13:37:56.221038Z
+3e97c42655e17f6af769a009fd5f4efd
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+jdbc.properties
+file
+
+
+
+
+2009-08-27T13:37:56.236652Z
+4105460986522fa127cd07773dc73b0d
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+hibernate.cfg.xml
+file
+
+
+
+
+2009-08-27T13:37:56.283495Z
+437fc242f0dda597e44687f474a9d543
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+

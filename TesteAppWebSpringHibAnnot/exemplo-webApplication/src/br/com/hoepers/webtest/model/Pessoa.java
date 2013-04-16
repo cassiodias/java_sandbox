@@ -1,0 +1,63 @@
+package br.com.hoepers.webtest.model;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="pessoa")
+public class Pessoa implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	private Integer pes_id;
+	
+	private String pes_nome;
+	
+	private List<Endereco> endereco;
+	
+	public Pessoa() {
+		super();
+	}
+
+	@Id 
+	@SequenceGenerator( name = "SEQ_PESSOA", sequenceName = "SEQ_PESSOA", allocationSize = 1 )
+	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "SEQ_PESSOA" )
+	@Column( name = "pes_id", nullable = false )
+	public Integer getPes_id() {
+		return pes_id;
+	}
+
+	public void setPes_id(Integer pes_id) {
+		this.pes_id = pes_id;
+	}
+
+	@Column (name = "pes_nome", nullable=false, length=100, unique=false)
+	public String getPes_nome() {
+		return pes_nome;
+	}
+
+	public void setPes_nome(String pes_nome) {
+		this.pes_nome = pes_nome;
+	}
+
+	@OneToMany(mappedBy="pessoa")
+	@OrderBy("end_rua")
+	public List<Endereco> getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(List<Endereco> endereco) {
+		this.endereco = endereco;
+	}
+
+}

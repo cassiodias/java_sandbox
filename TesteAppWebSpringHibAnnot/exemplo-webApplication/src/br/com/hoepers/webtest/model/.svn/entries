@@ -1,0 +1,54 @@
+8
+
+dir
+27272
+svn://172.16.4.45/tecnocob/pesquisas/TesteAppWebSpringHibAnnot/exemplo-webApplication/src/br/com/hoepers/webtest/model
+svn://172.16.4.45
+
+
+
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+b85a891d-cf35-0410-9a6a-f68e1ed5b63c
+
+Endereco.java
+file
+
+
+
+
+2009-08-27T13:37:35.016818Z
+47f12e7cc940e84a140b9fd54a4b9d3d
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+Pessoa.java
+file
+
+
+
+
+2009-08-27T13:37:35.063661Z
+279b93f9ed6a83ea5001e25cf37a0b23
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+

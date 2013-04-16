@@ -1,0 +1,89 @@
+package br.com.hoepers.webtest.utils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
+
+public class AbstractFormController extends SimpleFormController {
+
+	/**
+	 * Set up a custom property editor for the application's date format.
+	 */
+	protected void initBinder(HttpServletRequest request,
+			ServletRequestDataBinder binder) {
+
+		SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+		dateTimeFormat.setLenient(false);
+		SimpleDateFormat dateTimeFormatHora = new SimpleDateFormat("HH:mm");
+		dateTimeFormatHora.setLenient(false);
+
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateTimeFormat, false));
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateTimeFormatHora, false)); // if true == obrigatório
+
+	}
+
+	/**
+	 * Method disallows duplicate form submission. Typically used to prevent
+	 * duplicate insertion of entities into the datastore. Shows a new form with
+	 * an error message.
+	 * 
+	 * @throws Exception
+	 */
+	protected ModelAndView disallowDuplicateFormSubmission(
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		BindException errors = getErrorsForNewForm(request);
+		errors.reject("duplicateFormSubmission", "Duplicate form submission");
+		return showForm(request, response, errors);
+	}
+
+	protected void onBindAndValidate(HttpServletRequest request,
+			Object command, BindException errors) throws Exception {
+		super.onBindAndValidate(request, command, errors);
+	}
+
+	/**
+	 * @param beanValidator
+	 *        The beanValidator to set. public void
+	 *        setBeanValidator(BeanValidator beanValidator) {
+	 *        this.beanValidator = beanValidator; }
+	 */
+	protected ModelAndView onSubmit(HttpServletRequest request,
+			HttpServletResponse response, Object command, BindException errors)
+			throws Exception {
+		ModelAndView mv = null;
+		try {
+			mv = super.onSubmit(request, response, command, errors);
+		} catch (Throwable t) {
+			errors.reject(t.getMessage(), t.getLocalizedMessage());
+		}
+		Map<Object,Object> m = referenceData(request, command, errors);
+		if (m == null)
+			m = errors.getModel();
+		else
+			m.putAll(errors.getModel());
+		//***
+		for (Enumeration e = request.getAttributeNames(); e.hasMoreElements();) {
+			String s = (String) e.nextElement();
+			m.put(s, request.getAttribute(s));
+		}
+		if (mv == null)
+			return new ModelAndView(getFormView(), m);
+		else {
+			mv.getModel().putAll(m);
+			return mv;
+		}
+	}
+}

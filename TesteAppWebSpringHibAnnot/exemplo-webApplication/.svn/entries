@@ -1,0 +1,134 @@
+8
+
+dir
+27272
+svn://172.16.4.45/tecnocob/pesquisas/TesteAppWebSpringHibAnnot/exemplo-webApplication
+svn://172.16.4.45
+
+
+
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+b85a891d-cf35-0410-9a6a-f68e1ed5b63c
+
+test
+dir
+
+.classpath
+file
+
+
+
+
+2009-08-27T13:37:57.907382Z
+1a731cc793991ea1fa652883b728e686
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+.xdoclet
+file
+
+
+
+
+2009-08-27T13:37:57.922996Z
+3a187fe53adc591147e73ed30366412a
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+.project
+file
+
+
+
+
+2009-08-27T13:37:57.938611Z
+efc9f83a8296f8624012b53df86d8ef3
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+.tomcatplugin
+file
+
+
+
+
+2009-08-27T13:37:57.954225Z
+fa5550c09f405572ff1e2dca65491034
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+src
+dir
+
+.amateras
+file
+
+
+
+
+2009-08-27T13:37:57.954225Z
+ecdd18a0f0e4a04c1af31f5b01f75037
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+deploy
+dir
+
+web
+dir
+
+.cvsignore
+file
+
+
+
+
+2009-08-27T13:37:57.969839Z
+67e92c8765a9bc7fb2d335c459de9eb5
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+
+.settings
+dir
+
+build.xml
+file
+
+
+
+
+2009-08-27T13:37:57.985453Z
+e8d3a873cd3b72ea999e9ffe0c7f324f
+2007-01-17T21:16:20.000000Z
+6048
+rafael
+has-props
+

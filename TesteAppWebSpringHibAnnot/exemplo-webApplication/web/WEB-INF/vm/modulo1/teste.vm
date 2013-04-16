@@ -1,0 +1,8 @@
+#parse('header.vm')
+	<font class="text_black">Pessoa: $pessoa.pes_nome</font><br>
+	<font class="text_black">&nbsp;Enderecos:</font><br>
+	#foreach($lnEndereco in $pessoa.endereco)
+		<font class="text_black">$lnEndereco.end_rua</font><br>
+	#end
+	
+#parse('footer.vm')

@@ -1,0 +1,142 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName" default-lazy-init="false">
+
+	<!--
+		========================================================================
+														  Hoepers - S.A Tecnocob
+		========================================================================
+		Arquivo  : applicationContext-transaction.xml
+		Data     : 15.01.2007
+		Autor    : Cássio Dias
+		Descrição: Este arquivo possui somente as configurações de transação
+		da aplicação.
+		========================================================================
+	-->
+	
+	<!--  
+		====================================================
+		Hibernate Factory (Utilizando hibernate annotation).
+		====================================================
+		Objetivo: Obter a instancia da sessao do Hibernate
+		para qualquer transação utilizada pelo Spring.
+		====================================================		
+	-->   	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource"/>
+		</property>
+		<property name="configLocation">
+		   <value>${hibernate.cfg}</value>
+		</property>
+		<property name="configurationClass">
+		   <value>org.hibernate.cfg.AnnotationConfiguration</value>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${show.sql}</prop>   	
+				<!-- Executa DDL apartir das classes mapeadas. -->							
+				<!--prop key="hibernate.hbm2ddl.auto">create</prop--> 
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 
+		==========================================================================
+		Transaction Manager
+		==========================================================================
+		Objetivo: Gerenciar a sessao recebida através do Hibernate Factory para as
+		threads que utilizarão o serviço, permitindo que tenha 
+		uma thread session por factory.
+		==========================================================================
+	-->
+	<bean id="transactionManager" 
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager" />   
+	
+    <!--  
+		==========================================================================
+		AOP Auto Proxy Creator - BeanNameAutoProxyCreator
+		==========================================================================
+		Objetivo: Criar proxies AOP para os beans que tenham os mesmos nomes 
+		definidos em 'beanNames'.
+		O principal ponto de usar BeanNameAutoProxyCreator é que é aplicado a mesma
+		configuração para multiplos objetos com o minimo de configuração.
+		
+		Uso para transação: Sempre que os objetos definidos em 'beanNames'
+		(ex.: XXXDao) forem executados, via AOP, será carregado um interceptor
+		que dará a todos eles a mesma configuração de transação.
+		==========================================================================
+	-->   
+    <bean id="autoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator" >   
+        <property name="proxyTargetClass">   
+            <value>true</value>   
+        </property>   
+        <property name="interceptorNames">   
+            <list>   
+                <value>transactionInterceptor</value>   
+            </list>   
+        </property>   
+        <property name="beanNames">   
+            <list>   
+                <value>*BO</value>
+                <value>*DAO</value>
+                <value>*Dao</value>				
+            </list>   
+        </property>   
+    </bean>   
+
+	<!--
+		==========================================================================		
+		AOP Alliance MethodInterceptor - Transaction Interceptor
+		==========================================================================
+		Objetivo: Prover gerenciamento de transação declarativa usando a 
+		infra-estrutura	comum do Spring, ou seja, configura qual o tipo de
+		transação que um método, ou uma classe (ou todos) possuirão.
+		==========================================================================
+	-->
+    <bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor" >   
+        <property name="transactionAttributes">   
+            <props>   
+                <prop key="*">PROPAGATION_REQUIRED</prop>   
+				<!--prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="store*">PROPAGATION_REQUIRED</prop-->
+            </props>   
+        </property>   
+    </bean>   
+		
+    <!--  
+		=============================================
+		Hibernate Factory utilizando arquivos hbm.xml   
+		=============================================
+		Configuração depreciada. Alterado para
+		Hibernate annotation (Declaração acima).
+		
+		Obs.: Utilizei somente para testes de 
+		integração com o Hibernate. Logo após 
+		integrar e tudo funcionar, troquei para
+		HibernateAnnotation para evitar a criação
+		de vários arquivos de mapeamento (hbm.xml).
+		=============================================
+	-->
+	<!--
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" >   
+        <property name="dataSource">   
+            <ref local="dataSource"/>   
+        </property>   
+        <property name="hibernateProperties">   
+            <props>   
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>   
+                <prop key="hibernate.show_sql">false</prop>   
+            </props>   
+        </property>   
+        <property name="mappingResources">   
+            <list>   
+                <value>/br/com/hoepers/webtest/model/Pessoa.hbm.xml</value>   
+            </list>   
+        </property>   
+    </bean>
+	-->
+	
+</beans>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.5.0_06"/>
+	<classpathentry sourcepath="ECLIPSE_HOME/plugins/org.eclipse.jdt.source_3.1.1/src/org.junit_3.8.1/junitsrc.zip" kind="var" path="JUNIT_HOME/junit.jar"/>
+	<classpathentry kind="lib" path="C:/_wakeUp/Development/Java/applicationServer/apache-tomcat-5.5.20/common/lib/jasper-runtime.jar"/>
+	<classpathentry kind="lib" path="C:/_wakeUp/Development/Java/applicationServer/apache-tomcat-5.5.20/common/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/_wakeUp/Development/Java/applicationServer/apache-tomcat-5.5.20/common/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/ojdbc14-NOVO.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/velocity-1.4.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/velocity-tools-generic-1.2.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/velocity-tools-view-1.2.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-beanutils-1.6.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-codec.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-collections-3.0.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-lang-2.0.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/cglib-nodep-2.1_3.jar"/>
+	<classpathentry output="work" kind="src" path="work"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/jstl.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/standard.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/hibernate3.2.1-annotations.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/hibernate3.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/spring2.0.1.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/jta.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/antlr-2.7.6.jar"/>
+	<classpathentry kind="output" path="web/WEB-INF/classes"/>
+</classpath>
