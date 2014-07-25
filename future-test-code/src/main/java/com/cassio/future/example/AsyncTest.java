@@ -1,4 +1,4 @@
-package com.cassio.future.test.future_test_code;
+package com.cassio.future.example;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
